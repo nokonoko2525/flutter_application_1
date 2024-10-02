@@ -57,7 +57,7 @@ class MyAppState extends ChangeNotifier {
   //     Dislikes.add(current);
   //   }
   //   notifyListeners();
-  // }
+  //}
   //いったん書いてみた
 }
 
@@ -84,6 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FavoritesPage();
         break;
+      case 2:
+       page = DislikesPage();
+       break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -104,10 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.favorite),
                     label: Text('Favorites'),
                   ),
-                  //  NavigationRailDestination(
-                  //    icon: Icon(Icons.heart_broken),
-                  //    label: Text('Dislikes'),
-                  //  ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.heart_broken),
+                      label: Text('Dislikes'),
+                  ),
                   //これでメニュー画面にDislikeの画面飛ぶボタン追加
                 ],
                 selectedIndex: selectedIndex,
@@ -244,6 +247,34 @@ class FavoritesPage extends StatelessWidget {
         for (var pair in appState.favorites)
           ListTile(
             leading: Icon(Icons.favorite),
+            title: Text(pair.asLowerCase),
+          ),
+      ],
+    );
+  }
+}
+
+class DislikesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    if (appState.favorites.isEmpty) {
+      return Center(
+        child: Text('No favorites yet.'),
+      );
+    }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('You have '
+              '${appState.favorites.length} favorites:'),
+        ),
+        for (var pair in appState.favorites)
+          ListTile(
+            leading: Icon(Icons.heart_broken),
             title: Text(pair.asLowerCase),
           ),
       ],
