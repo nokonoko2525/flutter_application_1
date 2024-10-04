@@ -48,16 +48,16 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // var Dislikes = <WordPair>[];
+   var Dislikes = <WordPair>[];
 
-  // void toggleFavorite() {
-  //   if (Dislikes.contains(current)) {
-  //     Dislikes.remove(current);
-  //   } else {
-  //     Dislikes.add(current);
-  //   }
-  //   notifyListeners();
-  //}
+   void toggleDislikes() {
+     if (Dislikes.contains(current)) {
+       Dislikes.remove(current);
+     } else {
+       Dislikes.add(current);
+     }
+     notifyListeners();
+  }
   //いったん書いてみた
 }
 
@@ -167,7 +167,7 @@ class GeneratorPage extends StatelessWidget {
               SizedBox(width: 10 ,),
               ElevatedButton.icon(
                   onPressed: () {
-                  appState.toggleFavorite();
+                  appState.toggleDislikes();
                 },
                 icon: Icon(Icons.heart_broken),
                 label: Text('Dislike'),
